@@ -18,6 +18,7 @@ function App() {
     const stringExtractor = extract(['{{','}}']);
     const strings = stringExtractor(data);
     console.log(strings)
+    createFile()
   }
   function createFile() {
     console.log('data == ', data)
