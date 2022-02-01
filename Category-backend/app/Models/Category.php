@@ -34,18 +34,18 @@ class Category extends Model
         $arr = array();
         $all_data = DB::select('select id,parent_id from category');
         $all_data = (array) $all_data;
-        $result = $this->generateFormatArray($all_data,$id);
+        $result = $this->generatearray($all_data,$id);
         $obj = Category::find($id);
         $results = $obj->delete();
         return $results;
     }
 
-    function generateFormatArray($arr, $parent = 0) {
+    function generatearray($arr, $parent = 0) {
         $arr_all = array();
         foreach($arr as $page) {
             $page = (array) $page;
             if( $page['parent_id'] == $parent ) {
-                $page['sub'] = isset($page['sub']) ? $page['sub'] : $this->generateFormatArray($arr, $page['id']);
+                $page['sub'] = isset($page['sub']) ? $page['sub'] : $this->generatearray($arr, $page['id']);
                 $obj = Category::find($page['id']);
                 $result = $obj->delete();
                 $arr_all[] = $page;    

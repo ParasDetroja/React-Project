@@ -10,7 +10,7 @@ class CategoryController extends Controller
     // get All Category
     function getAllCategory() {
         $data = Category::all();
-        $data = $this->generateFormatArray($data, $parent = 0);
+        $data = $this->generatearray($data, $parent = 0);
         return $data;
     }
 
@@ -35,11 +35,11 @@ class CategoryController extends Controller
         return $result;
     }
 
-    function generateFormatArray($arr, $parent = 0) {
+    function generatearray($arr, $parent = 0) {
         $arr_all = array();
         foreach($arr as $page) {
             if( $page['parent_id'] == $parent ) {
-                $page['sub'] = isset($page['sub']) ? $page['sub'] : $this->generateFormatArray($arr, $page['id']);
+                $page['sub'] = isset($page['sub']) ? $page['sub'] : $this->generatearray($arr, $page['id']);
                 $arr_all[] = $page;
             }
         }
